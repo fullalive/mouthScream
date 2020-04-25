@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".MainActivity"
+    tools:visibility="visible">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="315dp"
+        android:layout_height="233dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
+        android:contentDescription="@string/game_started"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/mouth_opened" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="315dp"
+        android:layout_height="233dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="56dp"
+        android:contentDescription="@string/Start_game"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/mouth2" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#00000000"
+        android:contentDescription="@string/Scores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cup" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="318dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="41dp"
+        android:fontFamily="@font/intro"
+        android:text="@string/Start_game_hint"
+        android:textColor="@android:color/white"
+        android:textSize="38sp"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/user_name_input"
+        android:layout_width="301dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="27dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:fontFamily="@font/intro"
+        android:hint="@string/user_name_hint"
+        android:inputType="textPersonName"
+        android:textAlignment="textEnd"
+        android:textColor="@android:color/white"
+        android:textColorHint="#B3FFFFFF"
+        android:textSize="22sp"
+        android:typeface="normal"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

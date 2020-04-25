@@ -1,0 +1,9 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorPrimaryDark">@color/colorBackground</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorInvisible</item>
+        <item name="colorControlActivated">@color/colorTextMainActivity</item>
+    </style>
+</resources>
