@@ -1,12 +1,11 @@
 package com.iscreamhead.mouthscream;
 
+import android.Manifest;
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.util.Pair;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -15,41 +14,33 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+	private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
 	EditText userName;
 	ImageView start;
-	ImageView inGame;
 	TextView gameHint;
+	SoundMeter soundMeter;
+	String fileName;
 
-	final List<Pair<Integer, String>> titleList = new ArrayList<>(Arrays.asList(
-			new Pair<>(4000, "Тихо"),
-			new Pair<>(12000, "Плохо"),
-			new Pair<>(20000, "Неплохо"),
-			new Pair<>(32000, "Нормально"),
-			new Pair<>(Integer.MAX_VALUE, "Громко"))
-	);
-	int currentTitleList;
+	private String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		fileName = Objects.requireNonNull(getExternalCacheDir()).getAbsolutePath();
+		fileName += "/audiorecordtest.3gp";
+
+		ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+
+
 		setContentView(R.layout.activity_main);
 		setUserNameListener();
 		setImagesViewListener();
-//        currentScore = findViewById(R.id.currentScore);
-//        setTextScore();
-//        setNameUserInputLayer();
-//        startRecordSound();
 	}
 
 	public static void hideSoftKeyboard(Activity activity) {
@@ -62,55 +53,42 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-//    private void startRecordSound() {
-//        final SoundMeter soundMeter = new SoundMeter();
-//        soundMeter.start();
-//        final Handler changeTextView = new Handler();
-//        changeTextView.post(new Runnable() {
-//            int maxAmplitude;
-//
-//            @Override
-//            public void run() {
-//                double amplitude = soundMeter.getAmplitude();
-//                if (maxAmplitude < amplitude) {
-//                    maxAmplitude = (int) amplitude;
-//                }
-//                currentScore.setText(String.valueOf(maxAmplitude));
-//                while (maxAmplitude > titleList.get(currentTitleList).first) {
-//                    currentTitleList++;
-//                    textScore.setText(titleList.get(currentTitleList).second);
-//                }
-//                changeTextView.postDelayed(this, 1);
-//            }
-//        });
-//    }
+	private void startRecording() {
+		soundMeter = new SoundMeter();
+		soundMeter.start();
+	}
+
+	private void stopRecording() {
+		String amplitude = soundMeter.stop();
+
+		gameHint.setText(amplitude);
+	}
 
 	void setImagesViewListener() {
-		start = (ImageView)findViewById(R.id.imageView);
-		inGame = (ImageView)findViewById(R.id.imageView2);
-		gameHint = (TextView)findViewById(R.id.textView2);
+		start = findViewById(R.id.imageView);
+		gameHint = findViewById(R.id.gameHint);
+		gameHint.setText("Нажми на рот");
 
-		start.setOnClickListener(new View.OnClickListener() {
+		start.setOnTouchListener(new View.OnTouchListener() {
 			@Override
-			public void onClick(View v) {
-				start.setVisibility(View.INVISIBLE);
-				inGame.setVisibility(View.VISIBLE);
-				gameHint.setText("Кричи на телефон");
-			}
-		});
+			public boolean onTouch(View view, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					gameHint.setText("Кричи на телефон");
+					start.setImageResource(R.drawable.mouth_opened);
+					startRecording();
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					gameHint.setText("Нажми на рот");
+					start.setImageResource(R.drawable.mouth2);
+					stopRecording();
+				}
 
-		inGame.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				start.setVisibility(View.VISIBLE);
-				inGame.setVisibility(View.INVISIBLE);
-				gameHint.setText("Нажми на рот");
+				return true;
 			}
 		});
 	}
 
 	void setUserNameListener() {
-		userName = (EditText)findViewById(R.id.user_name_input);
+		userName = findViewById(R.id.user_name_input);
 
 		userName.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 			@Override
@@ -132,11 +110,4 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 	}
-
-//    void setTextScore() {
-//        textScore = findViewById(R.id.textScore);
-//        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/intro.otf");
-//        textScore.setTypeface(custom_font);
-//        textScore.setText(titleList.get(currentTitleList).second);
-//    }
 }

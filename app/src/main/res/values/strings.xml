@@ -6,6 +6,6 @@
     <string name="Scores">Очки</string>
     <string name="Settings">Настройки</string>
     <string name="Enter_name">Введите ваше имя</string>
-    <string name="Start_game_hint">НАЖМИ НА РОТ</string>
+    <string name="Start_game_hint">НАЖМИ НА    РОТ</string>
     <string name="user_name_hint">Введите ваше имя</string>
 </resources>

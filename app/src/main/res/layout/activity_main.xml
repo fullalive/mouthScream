@@ -9,22 +9,6 @@
     tools:visibility="visible">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="315dp"
-        android:layout_height="233dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="56dp"
-        android:contentDescription="@string/game_started"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:clickable="true"
-        android:focusable="true"
-        app:srcCompat="@drawable/mouth_opened" />
-
-    <ImageView
         android:id="@+id/imageView"
         android:layout_width="315dp"
         android:layout_height="233dp"
@@ -53,16 +37,19 @@
         app:srcCompat="@drawable/cup" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="318dp"
-        android:layout_height="54dp"
+        android:id="@+id/gameHint"
+        android:layout_width="261dp"
+        android:layout_height="211dp"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="41dp"
         android:fontFamily="@font/intro"
-        android:text="@string/Start_game_hint"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:singleLine="false"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="38sp"
+        android:textSize="40sp"
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
